@@ -1,5 +1,5 @@
 # docker-flask-gunicorn-nginx
-Bootstrap Dash Plotly Flask app served via Gunicorn and Nginx using Docker containers
+Dash Plotly Flask app served via Gunicorn and Nginx using Docker containers
 
 ### Run
 
