@@ -3,14 +3,11 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
-
 server = Flask(__name__)
-
 
 app = dash.Dash(name='Bootstrap_docker_app',
                 server=server,
                 csrf_protect=False)
-
 
 colors = {
     'background': '#111111',

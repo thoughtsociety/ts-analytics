@@ -1,7 +1,5 @@
 # docker-flask-gunicorn-nginx
-Bootstrap example of a Flask/Dash app served via Gunicorn and Nginx using Docker containers
-
-Guildeline article can be found at https://sladkovm.github.io/webdev/2017/10/16/Deploying-Plotly-Dash-in-a-Docker-Container-on-Digitital-Ocean.html
+Bootstrap Dash Plotly Flask app served via Gunicorn and Nginx using Docker containers
 
 ### Run
 
