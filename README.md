@@ -1,7 +1,8 @@
-# docker-flask-gunicorn-nginx
-Dash Plotly Flask app served via Gunicorn and Nginx using Docker containers
+## Synopsis
 
-### Run
+A Nginx and Python Flask Container used for bootstraping continuous deployment of Dash / Plot.ly Applications.
+
+## Code Example
 
 /bin/bash run_docker.sh
 
@@ -11,3 +12,9 @@ Dash Plotly Flask app served via Gunicorn and Nginx using Docker containers
 ### Preview
 
 http://localhost:8000/
+
+
+## Installation
+
+Requires Docker and Docker Compose
+
