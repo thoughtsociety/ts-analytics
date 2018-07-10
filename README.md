@@ -2,6 +2,12 @@
 
 A Nginx and Python Flask Container used for bootstraping continuous deployment of Dash / Plot.ly Applications.
 
+## What is Dash? 
+
+Dash Web Applications combine the full power and best features of Plot.ly, Python, React.js and Flask.
+
+https://dash.plot.ly/gallery
+
 ## Code Example
 
 /bin/bash run_docker.sh
