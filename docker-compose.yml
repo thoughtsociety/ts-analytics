@@ -9,8 +9,8 @@ services:
     ports:
       - "8000:8000"
     command: gunicorn -w 1 -b :8000 app:server
-    command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key test:app
-    command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key --bind 0.0.0.0:443 test:app
+    # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key test:app
+    # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key --bind 0.0.0.0:443 test:app
 
 
   nginx:
