@@ -18,6 +18,6 @@ services:
     restart: always
     build: ./nginx
     ports:
-      - "443:443"
+      - "80:80"
     depends_on:
       - dash
