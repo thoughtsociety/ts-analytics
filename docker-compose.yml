@@ -3,22 +3,22 @@ version: '2'
 services:
 
   dash1:
-    container_name: dash1
+    container_name: dash
     restart: always
-    build: ./dash1
+    build: ./dash
     ports:
-      - "8050:8050"
-    command: gunicorn -w 1 -b :8050 app:server # was 8000
+      - "8000:8000"
+    command: gunicorn -w 1 -b :8000 app:server # was 8000
     # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key test:app
     # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key --bind 0.0.0.0:443 test:app
 
 
   nginx1:
-    container_name: nginx1
+    container_name: nginx
     restart: always
     build: ./nginx
     ports:
       - "80:80"
       #- "443:443"
     depends_on:
-      - dash1
+      - dash
