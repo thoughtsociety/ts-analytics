@@ -1,7 +1,9 @@
-A fork of https://github.com/ericcgu/Flask_Dash_Container
+A fork of 
+https://github.com/ericcgu/Flask_Dash_Container
 
 Added extra items to requirements.txt in order to get this to correctly build and run.
-Replaced the app.py with StockTicker6Final.py (renamed to app.py)
+Demos a sample StockTicker app (renamed app.py) which originated 
+on [Jose Portilla's Dash course in Udemy](https://www.udemy.com/interactive-python-dashboards-with-plotly-and-dash/learn/v4/overview).
 
 ## Synopsis
 
@@ -28,3 +30,41 @@ http://localhost:8000/
 ## Installation
 
 Requires Docker and Docker Compose
+
+## Run on EC2
+
+Launch micro-T2.micro Ubuntu image.
+
+Get ssh keys
+
+SSH in and 
+
+Install 
+* git
+* docker
+* docker-compose
+
+git clone (this repo) in a directory of your choice `(/home/ubuntu/your_playground)`
+
+Once successfullly cloned
+
+There will be a run_docker.sh file where you cloned into.
+
+Run it as such:
+
+`/etc/bash run_docker.sh`
+
+From a web browser:
+
+hit your `ec2_public_address:8000`    
+
+add 8000 for the port
+
+The app is a stock plotter using Dash.
+It grabs price info from IEX using pandas_datareader.
+The dropdown stock symbors are populated by reading in the NASDAQ ticker symbols from a file in the same directory.
+
+
+
+
+
