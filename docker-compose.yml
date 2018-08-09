@@ -13,7 +13,7 @@ services:
     # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key --bind 0.0.0.0:443 test:app
 
 
-  nginx:
+  nginx1:
     container_name: nginx1
     restart: always
     build: ./nginx
