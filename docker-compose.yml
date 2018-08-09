@@ -2,7 +2,7 @@ version: '2'
 
 services:
 
-  dash1:
+  dash:
     container_name: dash
     restart: always
     build: ./dash
@@ -13,7 +13,7 @@ services:
     # command: gunicorn --certfile=/etc/letsencrypt/csr/cert.crt --keyfile=/etc/letsencrypt/keys/nginx_ssl.key --bind 0.0.0.0:443 test:app
 
 
-  nginx1:
+  nginx:
     container_name: nginx
     restart: always
     build: ./nginx
