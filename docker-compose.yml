@@ -2,7 +2,7 @@ version: '2'
 
 services:
 
-  dash:
+  dash1:
     container_name: dash1
     restart: always
     build: ./dash1
@@ -16,7 +16,7 @@ services:
   nginx:
     container_name: nginx1
     restart: always
-    build: ./nginx1
+    build: ./nginx
     ports:
       - "80:80"
       #- "443:443"
