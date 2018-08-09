@@ -1,62 +1,87 @@
-from flask import Flask
+#######
+# First Milestone Project: Develop a Stock Ticker
+# dashboard that either allows the user to enter
+# a ticker symbol into an input box, or to select
+# item(s) from a dropdown list, and uses pandas_datareader
+# to look up and display stock data on a graph.
+######
+
+# EXPAND STOCK SYMBOL INPUT TO PERMIT MULTIPLE STOCK SELECTION
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output, State
 
-server = Flask(__name__)
+from datetime import datetime
+import pandas as pd
+pd.core.common.is_list_like = pd.api.types.is_list_like
+import pandas_datareader.data as web # requires v0.6.0 or later
 
-app = dash.Dash(name='Bootstrap_docker_app',
-                server=server,
-                csrf_protect=False)
+app = dash.Dash()
+server = app.server
 
-colors = {
-    'background': '#111111',
-    'text': '#7FDBFF'
-}
+nsdq = pd.read_csv('NASDAQcompanylist.csv')
+nsdq.set_index('Symbol', inplace=True)
+options = []
+for tic in nsdq.index:
+    options.append({'label':'{} {}'.format(tic,nsdq.loc[tic]['Name']), 'value':tic})
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.H1(
-        children='Test 1',
-        style={
-            'textAlign': 'center',
-            'color': colors['text']
-        }
-    ),
-
-    html.Div(children='Dash: A web application framework for Python.', style={
-        'textAlign': 'center',
-        'color': colors['text']
-    }),
-
+app.layout = html.Div([
+    html.H1('Stock Ticker Dashboard'),
+    html.Div([
+        html.H3('Select stock symbols:', style={'paddingRight':'30px'}),
+        dcc.Dropdown(
+            id='my_ticker_symbol',
+            options=options,
+            value=['TSLA'],
+            multi=True
+        )
+    ], style={'display':'inline-block', 'verticalAlign':'top', 'width':'30%'}),
+    html.Div([
+        html.H3('Select start and end dates:'),
+        dcc.DatePickerRange(
+            id='my_date_picker',
+            min_date_allowed=datetime(2015, 1, 1),
+            max_date_allowed=datetime.today(),
+            start_date=datetime(2018, 1, 1),
+            end_date=datetime.today()
+        )
+    ], style={'display':'inline-block'}),
+    html.Div([
+        html.Button(
+            id='submit-button',
+            n_clicks=0,
+            children='Submit',
+            style={'fontSize':24, 'marginLeft':'30px'}
+        ),
+    ], style={'display':'inline-block'}),
     dcc.Graph(
-        id='example-graph-2',
+        id='my_graph',
         figure={
             'data': [
-                {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
-                {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-            ],
-            'layout': {
-                'images': [
-                    {
-                        'source':"http://192.168.99.100/static/api_logo_pwrdBy_strava_horiz_light.png",
-                        'xref':"paper",
-                        'yref':"paper",
-                        'x':1,
-                        'y':1.05,
-                        'sizex':0.2,
-                        'sizey':0.2,
-                        'xanchor':"right",
-                        'yanchor':"bottom"
-                }],
-                'plot_bgcolor': colors['background'],
-                'paper_bgcolor': colors['background'],
-                'font': {
-                    'color': colors['text']
-                }
-            }
+                {'x': [1,2], 'y': [3,1]}
+            ]
         }
     )
 ])
+@app.callback(
+    Output('my_graph', 'figure'),
+    [Input('submit-button', 'n_clicks')],
+    [State('my_ticker_symbol', 'value'),
+    State('my_date_picker', 'start_date'),
+    State('my_date_picker', 'end_date')])
+def update_graph(n_clicks, stock_ticker, start_date, end_date):
+    start = datetime.strptime(start_date[:10], '%Y-%m-%d')
+    end = datetime.strptime(end_date[:10], '%Y-%m-%d')
+    traces = []
+    for tic in stock_ticker:
+        df = web.DataReader(tic,'iex',start,end)
+        traces.append({'x':df.index, 'y': df.close, 'name':tic})
+    fig = {
+        'data': traces,
+        'layout': {'title':', '.join(stock_ticker)+' Closing Prices'}
+    }
+    return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
