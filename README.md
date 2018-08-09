@@ -1,3 +1,8 @@
+A fork of https://github.com/ericcgu/Flask_Dash_Container
+
+Added extra items to requirements.txt in order to get this to correctly build and run.
+Replaced the app.py with StockTicker6Final.py (renamed to app.py)
+
 ## Synopsis
 
 A Nginx and Python Flask Container used for bootstraping continuous deployment of Dash / Plot.ly Applications.
